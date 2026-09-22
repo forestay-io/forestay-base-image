@@ -1,0 +1,15 @@
+name: Docker Build Dockerfile
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    uses: kube-kaptain/buildon-github-actions/.github/workflows/docker-build-dockerfile.yaml@1.1.58
+    permissions:
+      contents: write
+      packages: write
+      checks: write

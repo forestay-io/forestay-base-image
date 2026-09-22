@@ -1,0 +1,21 @@
+apiVersion: kaptain.org/1.31
+kind: docker-build-dockerfile
+metadata:
+  description: "Runtime base image for every Forestay variant controller"
+
+spec:
+  layers:
+    - ghcr.io/kube-kaptain/layer/layer-github-flow-strict:[1.4]
+  main:
+    docker:
+      platform: linux/amd64,linux/arm64
+      dockerfile:
+        subPathLinuxAmd64: src/docker
+        subPathLinuxArm64: src/docker
+    hooks:
+      preTaggingTests: .github/bin/check-upstream.bash
+      postDockerTests: .github/bin/run-tests.bash
+  global:
+    release:
+      versioning:
+        maxParts: "2"
